@@ -49,13 +49,13 @@ djangoappengine sample app is available at $TEMP
 
 If you want to setup Django's Admin:
 
+
 -- $TEMP/settings.py --
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
-    'django.contrib.sites',
     'djangotoolbox',
     'search',
     'permission_backend_nonrel',
@@ -67,6 +67,7 @@ AUTHENTICATION_BACKENDS = (
 
 #SEARCH_BACKEND = 'search.backends.gae_background_tasks'
 SEARCH_BACKEND = 'search.backends.immediate_update'
+
 
 -- $TEMP/urls.py --
 from django.conf.urls.defaults import *
@@ -84,6 +85,9 @@ import search
 search.autodiscover()
 
 urlpatterns = patterns('',
+    # Warmup
+    ('^_ah/warmup$', 'djangoappengine.views.warmup'),
+
     # Index
     (r'^\$', 'django.views.generic.simple.direct_to_template', {'template': 'home.html'}),
 
@@ -91,10 +95,12 @@ urlpatterns = patterns('',
     (r'^admin/', include(admin.site.urls)),
 )
 
+
 cd $TEMP
 - fix your app.yaml and then:
 python2.5 manage.py createsuperuser
+python2.5 manage.py syncdb
 python2.5 manage.py runserver
 python2.5 manage.py deploy
-python2.5 manage.py remote createsuperuser
+python2.5 manage.py remote ...
 ################################################"
