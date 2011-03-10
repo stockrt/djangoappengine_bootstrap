@@ -17,10 +17,9 @@ h2. Using
 </code>
 </pre>
 
-h3. Author
+h2. Author
 
 Rogério Carvalho Schneider <stockrt@gmail.com>
-
 "http://stockrt.github.com":http://stockrt.github.com
 
 [app]http://www.allbuttonspressed.com/projects/djangoappengine
