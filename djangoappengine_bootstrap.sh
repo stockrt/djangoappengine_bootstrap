@@ -59,6 +59,9 @@ INSTALLED_APPS = (
     'djangotoolbox',
     'search',
     'permission_backend_nonrel',
+
+    # djangoappengine should come last, so it can override a few manage.py commands
+    'djangoappengine',
 )
 
 AUTHENTICATION_BACKENDS = (
@@ -71,6 +74,8 @@ SEARCH_BACKEND = 'search.backends.immediate_update'
 
 -- $TEMP/urls.py --
 from django.conf.urls.defaults import *
+
+handler500 = 'djangotoolbox.errorviews.server_error'
 
 # Django Admin
 from django.contrib import admin
