@@ -1,0 +1,22 @@
+#
+# Author: Rogério Carvalho Schneider <stockrt@gmail.com>
+# URL:    http://stockrt.github.com
+#
+
+h1. djangoappengine_bootstrap
+
+Script to build a complete test project running on djangoappengine/django-nonrel with all deps bundled.
+
+h2. Using
+
+<pre>
+<code>
+    # clone and run
+    git clone git://github.com/stockrt/djangoappengine_bootstrap.git
+    cd djangoappengine_bootstrap
+    ./djangoappengine_bootstrap.sh
+
+    # result
+    Your test/sample app will be sitting at /tmp/djangoappengine_bootstrap
+</code>
+</pre>
