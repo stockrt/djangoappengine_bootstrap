@@ -3,6 +3,7 @@
 WGET="wget -c"
 TEMPDL="/tmp/daeb"
 TEMP="/tmp/djangoappengine_bootstrap"
+DLTYPE="tar.gz"
 
 die () {
     echo
@@ -13,17 +14,24 @@ die () {
 
 mkdir -p $TEMPDL >/dev/null 2>&1
 cd $TEMPDL || die
-$WGET https://bitbucket.org/wkornewald/django-testapp/get/tip.zip -O django-testapp.zip || die
-$WGET https://bitbucket.org/wkornewald/django-nonrel/get/tip.zip -O django-nonrel.zip || die
-$WGET https://bitbucket.org/wkornewald/djangoappengine/get/tip.zip -O djangoappengine.zip || die
-$WGET https://bitbucket.org/wkornewald/djangotoolbox/get/tip.zip -O djangotoolbox.zip || die
-$WGET https://bitbucket.org/wkornewald/django-dbindexer/get/tip.zip -O django-dbindexer.zip || die
-$WGET https://bitbucket.org/twanschik/nonrel-search/get/tip.zip -O nonrel-search.zip || die
-$WGET https://bitbucket.org/fhahn/django-permission-backend-nonrel/get/tip.zip -O django-permission-backend-nonrel.zip || die
+$WGET https://bitbucket.org/wkornewald/django-testapp/get/tip.$DLTYPE -O django-testapp.$DLTYPE || die
+$WGET https://bitbucket.org/wkornewald/django-nonrel/get/tip.$DLTYPE -O django-nonrel.$DLTYPE || die
+$WGET https://bitbucket.org/wkornewald/djangoappengine/get/tip.$DLTYPE -O djangoappengine.$DLTYPE || die
+$WGET https://bitbucket.org/wkornewald/djangotoolbox/get/tip.$DLTYPE -O djangotoolbox.$DLTYPE || die
+$WGET https://bitbucket.org/wkornewald/django-dbindexer/get/tip.$DLTYPE -O django-dbindexer.$DLTYPE || die
+$WGET https://bitbucket.org/twanschik/nonrel-search/get/tip.$DLTYPE -O nonrel-search.$DLTYPE || die
+$WGET https://bitbucket.org/fhahn/django-permission-backend-nonrel/get/tip.$DLTYPE -O django-permission-backend-nonrel.$DLTYPE || die
 
-for f in *.zip
+for f in *.$DLTYPE
 do
-    unzip -q -o $f || die
+    # DLTYPE zip
+    #unzip -q -o $f || die
+
+    # DLTYPE tar.gz
+    tar xzf $f || die
+
+    # DLTYPE tar.bz2
+    #tar xjf $f || die
 done
 
 mkdir -p $TEMP >/dev/null 2>&1
