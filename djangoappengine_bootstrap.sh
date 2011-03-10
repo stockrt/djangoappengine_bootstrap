@@ -1,6 +1,6 @@
 #!/bin/bash
 
-WGET="wget -c"
+WGET="wget -q -c"
 TEMPDL="/tmp/daeb"
 TEMP="/tmp/djangoappengine_bootstrap"
 DLTYPE="tar.gz"
@@ -12,45 +12,73 @@ die () {
     exit 1
 }
 
+echo
+echo "Downloading..."
 mkdir -p $TEMPDL >/dev/null 2>&1
 cd $TEMPDL || die
+echo "django-testapp"
 $WGET https://bitbucket.org/wkornewald/django-testapp/get/tip.$DLTYPE -O django-testapp.$DLTYPE || die
+echo "django-nonrel"
 $WGET https://bitbucket.org/wkornewald/django-nonrel/get/tip.$DLTYPE -O django-nonrel.$DLTYPE || die
+echo "djangoappengine"
 $WGET https://bitbucket.org/wkornewald/djangoappengine/get/tip.$DLTYPE -O djangoappengine.$DLTYPE || die
+echo "djangotoolbox"
 $WGET https://bitbucket.org/wkornewald/djangotoolbox/get/tip.$DLTYPE -O djangotoolbox.$DLTYPE || die
+echo "django-dbindexer"
 $WGET https://bitbucket.org/wkornewald/django-dbindexer/get/tip.$DLTYPE -O django-dbindexer.$DLTYPE || die
+echo "nonrel-search"
 $WGET https://bitbucket.org/twanschik/nonrel-search/get/tip.$DLTYPE -O nonrel-search.$DLTYPE || die
+echo "django-permission-backend-nonrel"
 $WGET https://bitbucket.org/fhahn/django-permission-backend-nonrel/get/tip.$DLTYPE -O django-permission-backend-nonrel.$DLTYPE || die
 
+echo
+echo "Extracting..."
 for f in *.$DLTYPE
 do
+    echo "$f"
+
     # DLTYPE zip
     #unzip -q -o $f || die
 
     # DLTYPE tar.gz
-    tar xzf $f || die
+    tar xzmf $f || die
 
     # DLTYPE tar.bz2
-    #tar xjf $f || die
+    #tar xjmf $f || die
 done
 
+echo
+echo "Copying..."
 mkdir -p $TEMP >/dev/null 2>&1
+echo "django-testapp"
 cp -a wkornewald-django-testapp-*/* $TEMP || die
+echo "django-nonrel"
 cp -a wkornewald-django-nonrel-*/django $TEMP || die
+echo "djangoappengine"
 cp -a wkornewald-djangoappengine-* $TEMP/djangoappengine || die
+echo "djangotoolbox"
 cp -a wkornewald-djangotoolbox-*/djangotoolbox $TEMP || die
+echo "django-dbindexer"
 cp -a wkornewald-django-dbindexer-*/dbindexer $TEMP || die
+echo "nonrel-search"
 cp -a twanschik-nonrel-search-*/search $TEMP || die
+echo "django-permission-backend-nonrel"
 cp -a fhahn-django-permission-backend-nonrel-*/permission_backend_nonrel $TEMP || die
 
+echo
+echo "Done."
+sleep 1
+
 echo "
-################################################
-djangoappengine sample app is available at $TEMP
+############################################################################
+# djangoappengine sample app is available at $TEMP
 
-If you want to setup Django's Admin:
+# If you want to setup Django's Admin:
 
 
--- $TEMP/settings.py --
+########################################
+$TEMP/settings.py
+########################################
 INSTALLED_APPS = (
     'django.contrib.admin',
     'django.contrib.auth',
@@ -72,7 +100,9 @@ AUTHENTICATION_BACKENDS = (
 SEARCH_BACKEND = 'search.backends.immediate_update'
 
 
--- $TEMP/urls.py --
+########################################
+$TEMP/urls.py
+########################################
 from django.conf.urls.defaults import *
 
 handler500 = 'djangotoolbox.errorviews.server_error'
@@ -101,11 +131,12 @@ urlpatterns = patterns('',
 )
 
 
+# Using:
 cd $TEMP
-- fix your app.yaml and then:
+# Fix your app.yaml and then:
 python2.5 manage.py createsuperuser
 python2.5 manage.py syncdb
 python2.5 manage.py runserver
 python2.5 manage.py deploy
 python2.5 manage.py remote ...
-################################################"
+############################################################################"
