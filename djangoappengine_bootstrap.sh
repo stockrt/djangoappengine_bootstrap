@@ -12,7 +12,6 @@ die () {
     exit 1
 }
 
-echo
 echo "Downloading..."
 mkdir -p $TEMPDL >/dev/null 2>&1
 cd $TEMPDL || die
@@ -132,11 +131,14 @@ urlpatterns = patterns('',
 
 
 # Using:
+export PATH=\$PATH:/usr/google_appengine
 cd $TEMP
+
 # Fix your app.yaml and then:
 python2.5 manage.py createsuperuser
 python2.5 manage.py syncdb
 python2.5 manage.py runserver
+appcfg.py update_indexes .
 python2.5 manage.py deploy
 python2.5 manage.py remote ...
 ############################################################################"
