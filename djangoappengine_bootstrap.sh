@@ -54,7 +54,8 @@ cp -a wkornewald-django-testapp-*/* $TEMP || die
 echo "django-nonrel"
 cp -a wkornewald-django-nonrel-*/django $TEMP || die
 echo "djangoappengine"
-cp -a wkornewald-djangoappengine-* $TEMP/djangoappengine || die
+mkdir -p $TEMP/djangoappengine >/dev/null 2>&1
+cp -a wkornewald-djangoappengine-*/* $TEMP/djangoappengine || die
 echo "djangotoolbox"
 cp -a wkornewald-djangotoolbox-*/djangotoolbox $TEMP || die
 echo "django-dbindexer"
