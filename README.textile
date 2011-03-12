@@ -3,6 +3,9 @@ h1. djangoappengine_bootstrap
 Script to build a complete but simple test project running on
 "djangoappengine":app / "django-nonrel":nonrel with all deps bundled within.
 
+Fully functional sample project created using this bootstrap script:
+"https://github.com/stockrt/weekendcodes":boot
+
 h2. Using
 
 <pre>
@@ -30,3 +33,4 @@ Rogério Carvalho Schneider <stockrt@gmail.com>
 
 [app]http://www.allbuttonspressed.com/projects/djangoappengine
 [nonrel]http://www.allbuttonspressed.com/projects/django-nonrel
+[boot]https://github.com/stockrt/weekendcodes
