@@ -7,9 +7,15 @@ h2. Using
 
 <pre>
 <code>
-    # clone and run
+    # clone
     git clone git://github.com/stockrt/djangoappengine_bootstrap.git
     cd djangoappengine_bootstrap
+
+    # or download
+    wget --no-check-certificate https://github.com/stockrt/djangoappengine_bootstrap/raw/master/djangoappengine_bootstrap.sh
+
+    # run
+    chmod 755 djangoappengine_bootstrap.sh
     ./djangoappengine_bootstrap.sh
 
     # result
