@@ -4,7 +4,8 @@ Script to build a complete but simple test project running on
 "djangoappengine":app / "django-nonrel":nonrel with all deps bundled within.
 
 Fully functional sample project created using this bootstrap script:
-"https://github.com/stockrt/weekendcodes":boot
+"https://github.com/stockrt/djangoadminongae":sample
+"http://djangoadminongae.appspot.com/admin":sampleonline
 
 h2. Using
 
@@ -33,4 +34,5 @@ Rogério Carvalho Schneider <stockrt@gmail.com>
 
 [app]http://www.allbuttonspressed.com/projects/djangoappengine
 [nonrel]http://www.allbuttonspressed.com/projects/django-nonrel
-[boot]https://github.com/stockrt/weekendcodes
+[sample]https://github.com/stockrt/djangoadminongae
+[sampleonline]http://djangoadminongae.appspot.com/admin
