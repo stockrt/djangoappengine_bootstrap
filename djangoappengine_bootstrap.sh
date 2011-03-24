@@ -135,7 +135,7 @@ urlpatterns = patterns('',
 export PATH=\$PATH:/usr/google_appengine
 cd $TEMP
 
-# Fix your app.yaml and then:
+# Fix your \"app.yaml\" and then:
 python2.5 manage.py createsuperuser
 python2.5 manage.py syncdb
 python2.5 manage.py runserver
