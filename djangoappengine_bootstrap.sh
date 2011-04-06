@@ -12,6 +12,7 @@ die () {
     exit 1
 }
 
+echo
 echo "Downloading..."
 mkdir -p $TEMPDL >/dev/null 2>&1
 cd $TEMPDL || die
@@ -71,75 +72,21 @@ sleep 1
 
 echo "
 ############################################################################
-# djangoappengine sample app is available at $TEMP
+# djangoappengine sample app is available at:
+    $TEMP
 
 # If you want to setup Django's Admin:
-
-
-########################################
-$TEMP/settings.py
-########################################
-INSTALLED_APPS = (
-    'django.contrib.admin',
-    'django.contrib.auth',
-    'django.contrib.contenttypes',
-    'django.contrib.sessions',
-    'djangotoolbox',
-    'search',
-    'permission_backend_nonrel',
-
-    # djangoappengine should come last, so it can override a few manage.py commands
-    'djangoappengine',
-)
-
-AUTHENTICATION_BACKENDS = (
-    'permission_backend_nonrel.backends.NonrelPermissionBackend',
-)
-
-#SEARCH_BACKEND = 'search.backends.gae_background_tasks'
-SEARCH_BACKEND = 'search.backends.immediate_update'
-
-
-########################################
-$TEMP/urls.py
-########################################
-from django.conf.urls.defaults import *
-
-handler500 = 'djangotoolbox.errorviews.server_error'
-
-# Django Admin
-from django.contrib import admin
-admin.autodiscover()
-
-# Search for \"dbindexes.py\" in all installed apps
-import dbindexer
-dbindexer.autodiscover()
-
-# Search for \"search_indexes.py\" in all installed apps
-import search
-search.autodiscover()
-
-urlpatterns = patterns('',
-    # Warmup
-    ('^_ah/warmup$', 'djangoappengine.views.warmup'),
-
-    # Index
-    (r'^\$', 'django.views.generic.simple.direct_to_template', {'template': 'home.html'}),
-
-    # Django Admin
-    (r'^admin/', include(admin.site.urls)),
-)
-
+    cat admin/settings.py > $TEMP/settings.py
+    cat admin/urls.py > $TEMP/urls.py
 
 # Using:
-export PATH=\$PATH:/usr/google_appengine
-cd $TEMP
-
-# Fix your \"app.yaml\" and then:
-python2.5 manage.py createsuperuser
-python2.5 manage.py syncdb
-python2.5 manage.py runserver
-appcfg.py update_indexes .
-python2.5 manage.py deploy
-python2.5 manage.py remote ...
+    export PATH=\$PATH:/usr/google_appengine
+    cd $TEMP
+    # Fix your \"app.yaml\" and then:
+    python2.5 manage.py createsuperuser
+    python2.5 manage.py syncdb
+    python2.5 manage.py runserver
+    appcfg.py update_indexes .
+    python2.5 manage.py deploy
+    python2.5 manage.py remote ...
 ############################################################################"
