@@ -43,14 +43,14 @@ basedir="$PWD"
 
 die () {
     echo
-    echo "An error occurred. Please see above."
+    echo "Error: An error occurred. Please see above."
     echo
     exit 1
 }
 
 os_install () {
     package="$1"
-    echo "Installing with os native package tool: $package"
+    echo "Installing with OS native package tool: $package"
     (which port >/dev/null 2>&1 && sudo port install $package) || \
     (which yum >/dev/null 2>&1 && sudo yum -y install $package) || \
     (which apt-get >/dev/null 2>&1 && sudo apt-get -y install $package)
