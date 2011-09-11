@@ -28,9 +28,11 @@ download_dir="/tmp/djangoappengine_bootstrap_downloads"
 
 gae_prefix="/usr/google_appengine"
 
-python25_version="2.5.6"
-python25_download_url="http://www.python.org/ftp/python/$python25_version/Python-$python25_version.tar.bz2"
-python25_prefix="/usr/python25"
+python_src_version="2.5.6"
+python_src_download_url="http://www.python.org/ftp/python/$python_src_version/Python-$python_src_version.tar.bz2"
+python_src_prefix="/usr/python25"
+
+python_bin="${PYTHON_BIN:-$(which python2.5)}"
 
 wget="wget -q -c"
 
@@ -112,45 +114,84 @@ copy_apps () {
     cp -a fhahn-django-permission-backend-nonrel-*/permission_backend_nonrel $temp_dir || die
 }
 
-install_python25 () {
-    if [[ ! -f "$python25_prefix/bin/python" ]]
+test_python () {
+    if [[ "$python_bin" == "" ]]
     then
-        echo
-        echo "Downloading Python 2.5 ..."
-        $wget $python25_download_url || die
+        return 1
+    else
+        if [[ ! -f "$python_bin" ]]
+        then
+            echo "Warning: Provided python binary does not exist: $python_bin"
+            echo "Warning: Commands below may not work as suggested."
+        fi
+    fi
 
-        echo
-        echo "Extracting Python 2.5 ..."
-        tar xjmf Python-$python25_version.tar.bz2 || die
-        cd Python-$python25_version || die
+    return 0
+}
 
-        echo
-        echo "Installing Python 2.5 dependencies ..."
-        os_install libsqlite3-dev
-        os_install sqlite-devel
+install_python () {
+    # emerge
+    os_install "python"
+    os_install "sqlite"
 
-        echo
-        echo "Configuring Python 2.5 (output on $download_dir/python25.log) ..."
-        ./configure --prefix=$python25_prefix > $download_dir/python25.log 2>&1 || die
+    # apt-get / yum
+    os_install "python2.5"
 
-        echo
-        echo "Building Python 2.5 (output on $download_dir/python25.log) ..."
-        make >> $download_dir/python25.log 2>&1 || die
+    # apt-get
+    os_install "libsqlite3-dev"
 
-        echo
-        echo "Installing Python 2.5 (output on $download_dir/python25.log) ..."
-        sudo make install >> $download_dir/python25.log 2>&1 || die
+    # yum
+    os_install "sqlite-devel"
+
+    # ports
+    os_install "python25"
+    os_install "py25-sqlite3"
+
+    python_bin="$(which python2.5)"
+
+    # src
+    if [[ "$python_bin" == "" ]]
+    then
+        if [[ ! -f "$python_src_prefix/bin/python" ]]
+        then
+            echo
+            echo "Downloading Python ..."
+            $wget $python_src_download_url || die
+
+            echo
+            echo "Extracting Python ..."
+            tar xjmf Python-$python_src_version.tar.bz2 || die
+            cd Python-$python_src_version || die
+
+            echo
+            echo "Configuring Python (output on $download_dir/python.log) ..."
+            ./configure --prefix=$python_src_prefix > $download_dir/python.log 2>&1 || die
+
+            echo
+            echo "Building Python (output on $download_dir/python.log) ..."
+            make >> $download_dir/python.log 2>&1 || die
+
+            echo
+            echo "Installing Python (output on $download_dir/python.log) ..."
+            sudo make install >> $download_dir/python.log 2>&1 || die
+        fi
+
+        python_bin="$python_src_prefix/bin/python"
     fi
 }
 
 all_start_message () {
-    echo
-    echo "Creating environment."
+    echo "
+Creating environment.
+
+Using python: $python_bin
+You may override this by setting PYTHON_BIN env var:
+PYTHON_BIN=/usr/bin/python2.5 ./djangoappengine_bootstrap.sh"
 }
 
 all_end_message () {
-    echo
-    echo "Done."
+    echo "
+Done."
 }
 
 final_message () {
@@ -168,12 +209,12 @@ final_message () {
 
 # using:
     cd $temp_dir
-    $python25_prefix/bin/python manage.py createsuperuser
-    $python25_prefix/bin/python manage.py syncdb
-    $python25_prefix/bin/python manage.py runserver
-    $python25_prefix/bin/python $gae_prefix/appcfg.py update_indexes .
-    $python25_prefix/bin/python manage.py deploy
-    $python25_prefix/bin/python manage.py remote ...
+    $python_bin manage.py createsuperuser
+    $python_bin manage.py syncdb
+    $python_bin manage.py runserver
+    $python_bin $gae_prefix/appcfg.py update_indexes .
+    $python_bin manage.py deploy
+    $python_bin manage.py remote ...
 
 # trying:
     http://127.0.0.1:8000
@@ -189,6 +230,6 @@ all_start_message
 download_apps
 extract_apps
 copy_apps
-install_python25
+test_python || install_python
 all_end_message
 final_message
