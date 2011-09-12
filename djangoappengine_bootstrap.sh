@@ -154,7 +154,7 @@ install_python () {
     os_install "python25"
     os_install "py25-sqlite3"
 
-    python_bin="$(which python2.5)"
+    python_bin="$(which python2.5 2>/dev/null)"
 
     # src
     if [[ "$python_bin" == "" ]]
