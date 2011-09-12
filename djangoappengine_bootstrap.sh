@@ -215,6 +215,7 @@ final_message () {
     vi $temp_dir/app.yaml
 
 # using:
+    export PATH="$gae_prefix:\$PATH"
     cd $temp_dir
     $python_bin manage.py createsuperuser
     $python_bin manage.py syncdb
