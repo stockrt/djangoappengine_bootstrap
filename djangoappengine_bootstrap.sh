@@ -191,9 +191,17 @@ all_start_message () {
     echo "
 Creating environment.
 
-Using python: $python_bin
-You may override this by setting PYTHON_BIN env var:
-PYTHON_BIN=/usr/bin/python2.5 ./djangoappengine_bootstrap.sh"
+Using:
+    Python:         $python_bin
+    GAE:            $gae_prefix
+    Downloads:      $download_dir
+    Destination:    $temp_dir
+
+You may override some of this by setting env vars:
+    export PYTHON_BIN=/usr/bin/python2.5
+    export GAE_PREFIX=/usr/local/google_appengine
+    or at once:
+    PYTHON_BIN=/usr/bin/python2.5 GAE_PREFIX=/usr/local/google_appengine ./djangoappengine_bootstrap.sh"
 }
 
 all_end_message () {
