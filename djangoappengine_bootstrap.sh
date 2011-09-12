@@ -26,13 +26,12 @@
 temp_dir="/tmp/djangoappengine_bootstrap"
 download_dir="/tmp/djangoappengine_bootstrap_downloads"
 
-gae_prefix="/usr/google_appengine"
-
 python_src_version="2.5.6"
 python_src_download_url="http://www.python.org/ftp/python/$python_src_version/Python-$python_src_version.tar.bz2"
 python_src_prefix="/usr/python25"
 
-python_bin="${PYTHON_BIN:-$(which python2.5)}"
+python_bin="${PYTHON_BIN:-$(which python2.5 2>/dev/null)}"
+gae_prefix="${GAE_PREFIX:-/usr/local/google_appengine}"
 
 wget="wget -q -c"
 
