@@ -116,13 +116,16 @@ copy_apps () {
 }
 
 test_python () {
+    echo
+    echo "Testing Python ..."
+
     if [[ "$python_bin" == "" ]]
     then
         return 1
     else
         if [[ ! -f "$python_bin" ]]
         then
-            echo "Warning: Provided python binary does not exist: $python_bin"
+            echo "Warning: Provided Python binary does not exist: $python_bin"
             echo "Warning: Commands below may not work as suggested."
         fi
     fi
@@ -131,6 +134,9 @@ test_python () {
 }
 
 install_python () {
+    echo
+    echo "Installing Python ..."
+
     # emerge
     os_install "python"
     os_install "sqlite"
