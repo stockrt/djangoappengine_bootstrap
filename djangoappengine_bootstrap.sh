@@ -24,13 +24,13 @@
 # Author:   Rogério Carvalho Schneider <stockrt@gmail.com>
 
 temp_dir="/tmp/djangoappengine_bootstrap"
-download_dir="/tmp/djangoappengine_bootstrap_downloads"
+download_dir="/tmp/djangoappengine_bootstrap_download"
 
-python_src_version="2.5.6"
+python_src_version="2.7.2"
 python_src_download_url="http://www.python.org/ftp/python/$python_src_version/Python-$python_src_version.tar.bz2"
-python_src_prefix="/usr/python25"
+python_src_prefix="/usr/python27"
 
-python_bin="${PYTHON_BIN:-$(which python2.5 2>/dev/null)}"
+python_bin="${PYTHON_BIN:-$(which python2.7 2>/dev/null)}"
 gae_prefix="${GAE_PREFIX:-/usr/local/google_appengine}"
 
 wget="wget -q -c"
@@ -63,21 +63,21 @@ download_apps () {
     cd $download_dir || die
 
     echo "django-testapp"
-    $wget https://bitbucket.org/wkornewald/django-testapp/get/tip.tar.gz -O django-testapp.tar.gz || die
+    $wget https://github.com/django-nonrel/django-testapp/tarball/master -O django-testapp.tar.gz || die
     echo "django-nonrel"
-    $wget https://bitbucket.org/wkornewald/django-nonrel/get/tip.tar.gz -O django-nonrel.tar.gz || die
+    $wget https://github.com/django-nonrel/django-nonrel/tarball/master -O django-nonrel.tar.gz || die
     echo "djangoappengine"
-    $wget https://bitbucket.org/wkornewald/djangoappengine/get/tip.tar.gz -O djangoappengine.tar.gz || die
+    $wget https://github.com/django-nonrel/djangoappengine/tarball/master -O djangoappengine.tar.gz || die
     echo "djangotoolbox"
-    $wget https://bitbucket.org/wkornewald/djangotoolbox/get/tip.tar.gz -O djangotoolbox.tar.gz || die
+    $wget https://github.com/django-nonrel/djangotoolbox/tarball/master -O djangotoolbox.tar.gz || die
     echo "django-dbindexer"
-    $wget https://bitbucket.org/wkornewald/django-dbindexer/get/tip.tar.gz -O django-dbindexer.tar.gz || die
+    $wget https://github.com/django-nonrel/django-dbindexer/tarball/master -O django-dbindexer.tar.gz || die
+    echo "nonrel-search"
+    $wget https://github.com/django-nonrel/nonrel-search/tarball/master -O nonrel-search.tar.gz || die
+    echo "django-permission-backend-nonrel"
+    $wget https://github.com/django-nonrel/django-permission-backend-nonrel/tarball/master -O django-permission-backend-nonrel.tar.gz || die
     echo "django-autoload"
     $wget https://bitbucket.org/twanschik/django-autoload/get/tip.tar.gz -O django-autoload.tar.gz || die
-    echo "nonrel-search"
-    $wget https://bitbucket.org/twanschik/nonrel-search/get/tip.tar.gz -O nonrel-search.tar.gz || die
-    echo "django-permission-backend-nonrel"
-    $wget https://github.com/fhahn/django-permission-backend-nonrel/tarball/master -O django-permission-backend-nonrel.tar.gz || die
 }
 
 extract_apps () {
@@ -97,22 +97,22 @@ copy_apps () {
     mkdir -p $temp_dir >/dev/null 2>&1
 
     echo "django-testapp"
-    cp -a wkornewald-django-testapp-*/* $temp_dir || die
+    cp -a django-nonrel-django-testapp-*/* $temp_dir || die
     echo "django-nonrel"
-    cp -a wkornewald-django-nonrel-*/django $temp_dir || die
+    cp -a django-nonrel-django-nonrel-*/django $temp_dir || die
     echo "djangoappengine"
     mkdir -p $temp_dir/djangoappengine >/dev/null 2>&1
-    cp -a wkornewald-djangoappengine-*/* $temp_dir/djangoappengine || die
+    cp -a django-nonrel-djangoappengine-*/* $temp_dir/djangoappengine || die
     echo "djangotoolbox"
-    cp -a wkornewald-djangotoolbox-*/djangotoolbox $temp_dir || die
+    cp -a django-nonrel-djangotoolbox-*/djangotoolbox $temp_dir || die
     echo "django-dbindexer"
-    cp -a wkornewald-django-dbindexer-*/dbindexer $temp_dir || die
+    cp -a django-nonrel-django-dbindexer-*/dbindexer $temp_dir || die
+    echo "nonrel-search"
+    cp -a django-nonrel-nonrel-search-*/search $temp_dir || die
+    echo "django-permission-backend-nonrel"
+    cp -a django-nonrel-django-permission-backend-nonrel-*/permission_backend_nonrel $temp_dir || die
     echo "django-autoload"
     cp -a twanschik-django-autoload-*/autoload $temp_dir || die
-    echo "nonrel-search"
-    cp -a twanschik-nonrel-search-*/search $temp_dir || die
-    echo "django-permission-backend-nonrel"
-    cp -a fhahn-django-permission-backend-nonrel-*/permission_backend_nonrel $temp_dir || die
 }
 
 test_python () {
@@ -142,7 +142,7 @@ install_python () {
     os_install "sqlite"
 
     # apt-get / yum
-    os_install "python2.5"
+    os_install "python2.7"
 
     # apt-get
     os_install "libsqlite3-dev"
@@ -151,10 +151,10 @@ install_python () {
     os_install "sqlite-devel"
 
     # ports
-    os_install "python25"
-    os_install "py25-sqlite3"
+    os_install "python27"
+    os_install "py27-sqlite3"
 
-    python_bin="$(which python2.5 2>/dev/null)"
+    python_bin="$(which python2.7 2>/dev/null)"
 
     # src
     if [[ "$python_bin" == "" ]]
@@ -198,10 +198,10 @@ Using:
     Destination:    $temp_dir
 
 You may override some of this by setting env vars:
-    export PYTHON_BIN=/usr/bin/python2.5
+    export PYTHON_BIN=/usr/bin/python2.7
     export GAE_PREFIX=/usr/local/google_appengine
     or at once:
-    PYTHON_BIN=/usr/bin/python2.5 GAE_PREFIX=/usr/local/google_appengine ./djangoappengine_bootstrap.sh"
+    PYTHON_BIN=/usr/bin/python2.7 GAE_PREFIX=/usr/local/google_appengine ./djangoappengine_bootstrap.sh"
 }
 
 all_end_message () {
