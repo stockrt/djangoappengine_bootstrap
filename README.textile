@@ -33,3 +33,7 @@ Rogério Carvalho Schneider <stockrt@gmail.com>
 h2. Contributors
 
 "People":https://github.com/stockrt/locknload/contributors
+
+h2. License
+
+See "LICENSE":https://github.com/stockrt/djangoappengine_bootstrap/blob/master/LICENSE
