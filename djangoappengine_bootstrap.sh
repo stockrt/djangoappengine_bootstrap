@@ -221,6 +221,7 @@ final_message () {
 # if you want to setup django's admin:
     cat $basedir/admin/settings.py > $temp_dir/settings.py
     cat $basedir/admin/urls.py > $temp_dir/urls.py
+    cat $basedir/admin/app.yaml > $temp_dir/app.yaml
 
 # configure:
     vi $temp_dir/app.yaml
