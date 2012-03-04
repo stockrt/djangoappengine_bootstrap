@@ -1,11 +1,11 @@
-h1. djangoappengine_bootstrap
+h2. djangoappengine_bootstrap
 
 Script to build a complete but simple test project running on
-"djangoappengine":app / "django-nonrel":nonrel with all deps bundled within.
+"djangoappengine":https://github.com/django-nonrel/djangoappengine / "django-nonrel":https://github.com/django-nonrel/django-nonrel with all deps bundled within.
 
 Fully functional sample project created using this bootstrap script:
-"https://github.com/stockrt/djangoadminongae":sample
-"http://djangoadminongae.appspot.com/admin":sampleonline
+"https://github.com/stockrt/djangoadminongae":https://github.com/stockrt/djangoadminongae
+"http://djangoadminongae.appspot.com/admin":http://djangoadminongae.appspot.com/admin
 
 h2. Using
 
@@ -27,9 +27,9 @@ h2. Using
 h2. Author
 
 Rogério Carvalho Schneider <stockrt@gmail.com>
+
 "http://stockrt.github.com":http://stockrt.github.com
 
-[app]http://www.allbuttonspressed.com/projects/djangoappengine
-[nonrel]http://www.allbuttonspressed.com/projects/django-nonrel
-[sample]https://github.com/stockrt/djangoadminongae
-[sampleonline]http://djangoadminongae.appspot.com/admin
+h2. Contributors
+
+"People":https://github.com/stockrt/locknload/contributors
