@@ -20,18 +20,18 @@ inbound_services:
 
 handlers:
 - url: /_ah/queue/deferred
-  script: djangoappengine/deferred/handler.py
   #script: djangoappengine.deferred.handler.application
+  script: djangoappengine/deferred/handler.py
   login: admin
 
 - url: /_ah/stats/.*
-  script: djangoappengine/appstats/ui.py
   #script: djangoappengine.appstats.application
+  script: djangoappengine/appstats/ui.py
 
 - url: /media/admin
   static_dir: django/contrib/admin/media
   expiration: "7d"
 
 - url: /.*
-  script: djangoappengine/main/main.py
   #script: djangoappengine.main.application
+  script: djangoappengine/main/main.py
