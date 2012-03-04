@@ -26,11 +26,14 @@
 temp_dir="/tmp/djangoappengine_bootstrap"
 download_dir="/tmp/djangoappengine_bootstrap_download"
 
-python_src_version="2.7.2"
+py_ver="2"
+py_maj="5"
+py_min="6"
+python_src_version="${py_ver}.${py_maj}.${py_min}"
 python_src_download_url="http://www.python.org/ftp/python/$python_src_version/Python-$python_src_version.tar.bz2"
-python_src_prefix="/usr/python27"
+python_src_prefix="/usr/python${py_ver}${py_maj}"
 
-python_bin="${PYTHON_BIN:-$(which python2.7 2>/dev/null)}"
+python_bin="${PYTHON_BIN:-$(which python${py_ver}.${py_maj} 2>/dev/null)}"
 gae_prefix="${GAE_PREFIX:-/usr/local/google_appengine}"
 
 wget="wget -q -c"
@@ -142,7 +145,7 @@ install_python () {
     os_install "sqlite"
 
     # apt-get / yum
-    os_install "python2.7"
+    os_install "python${py_ver}.${py_maj}"
 
     # apt-get
     os_install "libsqlite3-dev"
@@ -151,10 +154,10 @@ install_python () {
     os_install "sqlite-devel"
 
     # ports
-    os_install "python27"
-    os_install "py27-sqlite3"
+    os_install "python${py_ver}${py_maj}"
+    os_install "py${py_ver}${py_maj}-sqlite3"
 
-    python_bin="$(which python2.7 2>/dev/null)"
+    python_bin="$(which python${py_ver}.${py_maj} 2>/dev/null)"
 
     # src
     if [[ "$python_bin" == "" ]]
@@ -198,10 +201,10 @@ Using:
     Destination:    $temp_dir
 
 You may override some of this by setting env vars:
-    export PYTHON_BIN=/usr/bin/python2.7
+    export PYTHON_BIN=/usr/bin/python${py_ver}.${py_maj}
     export GAE_PREFIX=/usr/local/google_appengine
     or at once:
-    PYTHON_BIN=/usr/bin/python2.7 GAE_PREFIX=/usr/local/google_appengine ./djangoappengine_bootstrap.sh"
+    PYTHON_BIN=/usr/bin/python${py_ver}.${py_maj} GAE_PREFIX=/usr/local/google_appengine ./djangoappengine_bootstrap.sh"
 }
 
 all_end_message () {
